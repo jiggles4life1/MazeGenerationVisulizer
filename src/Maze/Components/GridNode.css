@@ -1,0 +1,204 @@
+.Container{
+  padding-top: 10px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+
+.Center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+
+.BoardContainer{
+    border-bottom: solid 5px black;
+    border-top: solid 5px black;
+    border-right: solid 5px black;
+    border-left: solid 5px black;
+}
+
+.GridRow{
+    display: flex;
+    flex-direction: row;
+    /*justify-content: center;*/
+}
+
+
+.GridNodeBorderless{
+    height: 50px;
+    width: 50px;
+    background-color: whitesmoke;
+}
+
+
+.GridNodeLeftWall{
+    height: 50px;
+    width: 5px;
+    background-color: black;
+}
+
+.GridNodeTopWall{
+    height: 5px;
+    width: 50px;
+    background-color: black;
+}
+
+.EmptyLeftWall{
+    height: 50px;
+    width: 5px;
+    animation-name: removeWall;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+/*
+.EmptyTopWall{
+    height: 5px;
+    width: 55px;
+    background-color: whitesmoke;
+}
+*/
+
+.EmptyTopWall{
+    height: 5px;
+    width: 50px;
+    animation-name: removeWall;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+@keyframes removeWall {
+    
+    0% {
+        transform: scale(0.3);
+        background-color: rgba(66, 0, 0, 0.75);
+        border-radius: 100%;
+      }
+    
+      50% {
+        background-color: rgba(202, 20, 126, 0.75);
+      }
+    
+      75% {
+        transform: scale(1.2);
+        background-color: rgba(175, 8, 226, 0.75);
+      }
+    
+      100% {
+        transform: scale(1);
+        background-color: whitesmoke;
+      }
+}
+
+
+.TestLeft{
+    height: 50px;
+    width: 5px;
+    background-color: red;
+}
+
+.GridNodeBorderlessAnimated{
+    height: 50px;
+    width: 50px;
+    animation-name: group;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+.NullNode{
+  height: 5px;
+  width: 5px;
+  background-color: black;
+}
+
+.StartNode{
+  height: 50px;
+  width: 50px;
+  background-color: red;
+}
+
+.FinishNode{
+  height: 50px;
+  width: 50px;
+  background-color: blue;
+}
+
+.GroupNumberAnimation{
+  animation-name: group;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.NodeInMaze{
+  height: 50px;
+  width: 50px;
+  animation-name: group;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.NodeNotInMaze{
+  height: 50px;
+  width: 50px;
+  background-color: gray;
+}
+
+.NeighborNode{
+  height: 50px;
+  width: 50px;
+  background-color: rgb(192, 200, 76);
+}
+
+
+@keyframes group {
+    
+    0% {
+        transform: scale(0.3);
+        background-color: rgba(0, 0, 66, 0.75);
+        border-radius: 100%;
+      }
+    
+      50% {
+        background-color: rgba(17, 104, 217, 0.75);
+      }
+    
+      75% {
+        transform: scale(1.2);
+        background-color: rgba(0, 217, 159, 0.75);
+      }
+    
+      100% {
+        transform: scale(1);
+        background-color: whitesmoke;
+      }
+}
