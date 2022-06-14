@@ -23,6 +23,7 @@ class BoardComponent extends React.Component{
         this.DFS = "DFS";
 
         this.isMaze = false;
+        this.isGenerating = false;
 
         //this.animateKruskal = this.animateKruskal.bind(this);
         this.state={
@@ -119,6 +120,7 @@ class BoardComponent extends React.Component{
       if(this.isMaze == true){
         return;
       }
+      this.isGenerating = true;
       this.isMaze = true;
       let alg = this.algorithmChoice.getCurrent();
       if(alg === this.kruskal){
@@ -191,6 +193,9 @@ class BoardComponent extends React.Component{
     }
 
     resetBoard = function(){
+      if(this.isGenerating){
+        return;
+      }
       let newGrid = this.state.board.reset();
       this.setState({board: this.board});
 
@@ -231,6 +236,7 @@ class BoardComponent extends React.Component{
     }
 
     animateDFS(nodes){
+      this.isGenerating = true;
       let nodeInMaze = 'GridNodeBorderless';
       let nodeNotInMaze = 'NodeNotInMaze';
       let neighborNode = 'NeighborNode';
@@ -242,6 +248,7 @@ class BoardComponent extends React.Component{
         setTimeout(() => {
           if (k == nodes.length){
             document.getElementById(`node-${nodes[nodes.length-1][0][0]}-${nodes[nodes.length-1][0][1]}`).className = nodeInMaze;
+            this.isGenerating = false;
           }
           if (k == 0){
             let i = nodes[k][0][0];
@@ -278,8 +285,11 @@ class BoardComponent extends React.Component{
       let neighborNode = 'NeighborNode';
       let removedTopWall = 'EmptyTopWall';
       let removedLeftWall = 'EmptyLeftWall'
-      for(let k = 0; k < nodes.length; k++){
+      for(let k = 0; k <= nodes.length; k++){
         setTimeout(() => {
+          if(k==nodes.length){
+            this.isGenerating = false;
+          }
           //animate the node added
           let i = nodes[k][0];
           let j = nodes[k][1];
@@ -317,6 +327,7 @@ class BoardComponent extends React.Component{
           if(k == orderOfWallsRemoved.length){
             this.setState({showGridNumbers: false});
             this.stopShowGridNumbers();
+            this.isGenerating = false;
           }
           else{
           let i = orderOfWallsRemoved[k][0];
