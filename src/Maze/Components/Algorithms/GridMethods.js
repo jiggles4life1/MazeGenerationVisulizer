@@ -45,6 +45,9 @@ export function removeEdge(grid, edge){
     let i = edge[0];
     let j = edge[1];
     //since wall and empty wall are 2 apart in mapping
+    if(grid[i][j] >= 4){
+        return;
+    }
     grid[i][j] += 2;
 }
 
@@ -162,4 +165,14 @@ export function getNeighbors(cell, grid){
     }
 
     return neighbors;
+}
+
+export function copyNodesArray(nodes){
+    let n = [];
+    for(let i = 0; i < nodes.length; i++){
+        let x = nodes[i][0];
+        let y = nodes[i][1];
+        n.push([x, y]);
+    }
+    return n;
 }

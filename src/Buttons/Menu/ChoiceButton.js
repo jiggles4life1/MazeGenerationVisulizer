@@ -30,6 +30,7 @@ class ChoiceButton extends React.Component{
 
     
     press = function(){
+        console.log(this.name);
         this.unpressAllFunction();
         this.algorithmChoice.chooseWithName(this.name);
         let buttonName = this.name + "Button";

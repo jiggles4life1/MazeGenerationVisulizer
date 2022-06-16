@@ -5,6 +5,8 @@ import { kruskal } from './Algorithms/Kruskal';
 import Node from './Node'
 import { prim } from './Algorithms/Prim';
 import { DFS } from './Algorithms/DFS';
+import { wilson } from './Algorithms/Wilson'
+import { cordsEqual } from './Algorithms/GridMethods';
 
 class BoardComponent extends React.Component{
     constructor(props){
@@ -21,6 +23,7 @@ class BoardComponent extends React.Component{
         this.kruskal = "Kruskal";
         this.prim = "Prim";
         this.DFS = "DFS";
+        this.wilson = "Wilson";
 
         this.isMaze = false;
         this.isGenerating = false;
@@ -123,6 +126,8 @@ class BoardComponent extends React.Component{
       this.isGenerating = true;
       this.isMaze = true;
       let alg = this.algorithmChoice.getCurrent();
+      console.log(alg);
+      console.log(this.wilson);
       if(alg === this.kruskal){
         this.startKruskal();
         this.isMaze = true;
@@ -135,36 +140,30 @@ class BoardComponent extends React.Component{
         this.startDFS();
         this.isMaze = true;
       }
+      else if(alg === this.wilson){
+        this.startWilson();
+        this.isMaze = true;
+        //this.setState({isMaze: true});
+      }
       else{
         console.log("ALG NOT FOUND IN: BoardComponent.launch()");
+        this.isGenerating = false;
+        this.isMaze = false;
       }
     }
     printState = function(){
-      /*
-      USE THIS CODE TO CALL AND ANIMATE KRUSKAL
-      let krusk = kruskal(this.board.grid);
-      let removed = krusk[0];
-      let groupOrder = krusk[1];
-      this.animateKruskal(removed, groupOrder);
-      */
-
-      /*
-      USE THIS CODE TO ANIMATE PRIM 
-      let p = prim(this.board.grid);
-      let nodes = p[0];
-      let neighbors = p[1];
-      let edges = p[2];
-      this.addClassNameToAllNodes('NodeNotInMaze');
-      this.stopShowGridNumbers();
-      this.animatePrim(nodes, neighbors, edges);
-      */
       let dfs = DFS(this.board.grid);
       this.animateDFS(dfs);
-
-
-
     }
 
+    startWilson(){
+      this.stopShowGridNumbers();
+      let w = wilson(this.board.grid);
+      this.animateWilson(w[0], w[1]);
+      console.log(w);
+      console.log(this.board.grid);
+    }
+    
     startKruskal(){
       //USE THIS CODE TO CALL AND ANIMATE KRUSKAL
       this.startShowGridNumbers();
@@ -235,13 +234,92 @@ class BoardComponent extends React.Component{
       console.log(x);
     }
 
+    animateWilson(nodes, edges){
+      this.isGenerating = true;
+      let nodeInMaze = 'NodeInMaze';
+      let nodeNotInMaze = 'NodeNotInMaze';
+      let pathNode = 'NeighborNode';
+      let removedTopWall = 'EmptyTopWall';
+      let removedLeftWall = 'EmptyLeftWall';
+      this.addClassNameToAllNodes(nodeNotInMaze);
+
+      let edgeIteration = 0;
+      let emptyWall = false;
+      for(let k = 0; k <= nodes.length; k++){
+        setTimeout(() => {
+          if(k == nodes.length){
+            this.isGenerating = false;
+            this.addClassNameToAllNodes(nodeInMaze);
+            this.setState({board: this.board});
+          }
+          else{
+            if(cordsEqual([-1, -1], nodes[k][0])){
+              //animate full iteration here
+
+              //animates nodes
+              for(let p = 0; p < nodes[k-1].length; p++){
+                let i = nodes[k-1][p][0];
+                let j = nodes[k-1][p][1];
+                document.getElementById(`node-${i}-${j}`).className = nodeInMaze;
+              }
+
+              //animates edges
+              console.log("edge iteration: " + edgeIteration);
+              for(let p = 0; p < edges[edgeIteration].length; p++){
+                let i = edges[edgeIteration][p][0];
+                let j = edges[edgeIteration][p][1];
+                let name = ''
+                if(this.board.isEmptyTopWall(i, j)){
+                  name = "EmptyTopWall";
+                }
+                else if(this.board.isEmptyLeftWall(i, j)){
+                  name = "EmptyLeftWall";
+                }
+                else{
+                  emptyWall = true;
+                }
+                
+                document.getElementById(`node-${i}-${j}`).className = name;
+              }
+              edgeIteration++;
+            }
+
+
+            //animates the paths of each walk 
+            else{
+              //removes previous path
+              if(k > 0){
+                for(let p = 0; p < nodes[k-1].length; p++){
+                  let i = nodes[k-1][p][0];
+                  let j = nodes[k-1][p][1];
+                  document.getElementById(`node-${i}-${j}`).className = nodeNotInMaze;
+                }
+              }
+              //shows new path
+              for(let p = 0; p < nodes[k].length; p++){
+                let i = nodes[k][p][0];
+                let j = nodes[k][p][1];
+                document.getElementById(`node-${i}-${j}`).className = pathNode;
+
+              }
+            }
+          }
+
+
+
+        }, 50 * k);
+      }
+      console.log("NULL WALL: " + emptyWall);
+
+    }
+
     animateDFS(nodes){
       this.isGenerating = true;
       let nodeInMaze = 'GridNodeBorderless';
       let nodeNotInMaze = 'NodeNotInMaze';
       let neighborNode = 'NeighborNode';
       let removedTopWall = 'EmptyTopWall';
-      let removedLeftWall = 'EmptyLeftWall'
+      let removedLeftWall = 'EmptyLeftWall';
       let currentNode = neighborNode;
       this.addClassNameToAllNodes(nodeNotInMaze);
       for(let k = 0; k <= nodes.length; k++){
@@ -284,7 +362,7 @@ class BoardComponent extends React.Component{
       let nodeNotInMaze = 'NodeNotInMaze';
       let neighborNode = 'NeighborNode';
       let removedTopWall = 'EmptyTopWall';
-      let removedLeftWall = 'EmptyLeftWall'
+      let removedLeftWall = 'EmptyLeftWall';
       for(let k = 0; k <= nodes.length; k++){
         setTimeout(() => {
           if(k==nodes.length){

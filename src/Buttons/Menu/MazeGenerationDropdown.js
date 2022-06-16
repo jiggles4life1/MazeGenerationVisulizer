@@ -12,13 +12,15 @@ class MazeGenerationDropdown extends React.Component{
     this.buttonNames = [
       'Kruskal',
       'DFS',
-      'Prim'
+      'Prim',
+      'Wilson'
     ];
 
     this.buttonRefs = {
       kruskal: React.createRef(),
       DFS: React.createRef(),
-      prim: React.createRef()
+      prim: React.createRef(),
+      wilson: React.createRef()
   };
     this.unpressAllButtons = this.unpressAllButtons.bind(this);
     this.getPressedButton = this.getPressedButton.bind(this);
@@ -55,6 +57,15 @@ class MazeGenerationDropdown extends React.Component{
             id={this.buttonNames[2] + 'Choice'} 
             />
 
+          <ChoiceButton
+            ref={this.buttonRefs.wilson}
+            name={this.buttonNames[3]}
+            algorithmChoice={this.algorithmChoice}
+            unpressAllFunction={this.unpressAllButtons}
+            id={this.buttonNames[3] + 'Choice'}
+            />
+
+
 
         </div>
       )
@@ -66,6 +77,7 @@ class MazeGenerationDropdown extends React.Component{
       this.buttonRefs.kruskal.current.unpress();
       this.buttonRefs.DFS.current.unpress();
       this.buttonRefs.prim.current.unpress();
+      this.buttonRefs.wilson.current.unpress();
     }
 
     getPressedButton = function(){
@@ -77,6 +89,9 @@ class MazeGenerationDropdown extends React.Component{
     }
     else if (this.buttonRefs.prim.current.isPressed()){
       return "prim";
+    }
+    else if(this.buttonRefs.Wilson.current.isPressed()){
+      return "wilson"
     }
     }
 
