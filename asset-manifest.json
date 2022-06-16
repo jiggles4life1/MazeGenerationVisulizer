@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/MazeGenerationVisulizer/static/css/main.f93b4af4.css",
-    "main.js": "/MazeGenerationVisulizer/static/js/main.6fe439d6.js",
+    "main.js": "/MazeGenerationVisulizer/static/js/main.b8bf9d6a.js",
     "static/js/787.4f9f685d.chunk.js": "/MazeGenerationVisulizer/static/js/787.4f9f685d.chunk.js",
     "index.html": "/MazeGenerationVisulizer/index.html",
     "main.f93b4af4.css.map": "/MazeGenerationVisulizer/static/css/main.f93b4af4.css.map",
-    "main.6fe439d6.js.map": "/MazeGenerationVisulizer/static/js/main.6fe439d6.js.map",
+    "main.b8bf9d6a.js.map": "/MazeGenerationVisulizer/static/js/main.b8bf9d6a.js.map",
     "787.4f9f685d.chunk.js.map": "/MazeGenerationVisulizer/static/js/787.4f9f685d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f93b4af4.css",
-    "static/js/main.6fe439d6.js"
+    "static/js/main.b8bf9d6a.js"
   ]
 }
