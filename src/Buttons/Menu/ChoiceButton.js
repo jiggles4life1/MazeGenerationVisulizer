@@ -37,31 +37,9 @@ class ChoiceButton extends React.Component{
         const button = document.getElementById(buttonName);
         button.style.setProperty('--button_color', 'rgb(192, 200, 76)');
         this.setState({pressed: true});
-
     }
 
 
-    /*deactivate(){
-        let buttonName = this.name + "Button";
-        console.log(buttonName);
-        const button = document.getElementById(buttonName);
-        console.log(button);
-        if(button != null){
-            console.log("deaccin");
-            button.disabled = true;
-        }
-        this.setState({pressable: false});
-    }
-
-    activate(){
-        let buttonName = this.name + "Button";
-        const button = document.getElementById({buttonName} + "Button");
-        if(button != null){
-            button.disabled = false;
-        }
-        this.setState({pressable: true});
-    }
-    */
 
 
     unpress = function(){
