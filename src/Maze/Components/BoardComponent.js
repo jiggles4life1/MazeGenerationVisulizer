@@ -123,24 +123,28 @@ class BoardComponent extends React.Component{
       if(this.isMaze == true){
         return;
       }
-      this.isGenerating = true;
-      this.isMaze = true;
+      //this.isGenerating = true;
+      //this.isMaze = true;
       let alg = this.algorithmChoice.getCurrent();
       console.log(alg);
       console.log(this.wilson);
       if(alg === this.kruskal){
+        this.isGenerating = true;
         this.startKruskal();
         this.isMaze = true;
       }
       else if(alg === this.prim){
+        this.isGenerating = true;
         this.startPrim();
         this.isMaze = true;
       }
       else if(alg === this.DFS){
+        this.isGenerating = true;
         this.startDFS();
         this.isMaze = true;
       }
       else if(alg === this.wilson){
+        this.isGenerating = true;
         this.startWilson();
         this.isMaze = true;
         //this.setState({isMaze: true});
@@ -243,7 +247,7 @@ class BoardComponent extends React.Component{
       let removedLeftWall = 'EmptyLeftWall';
       this.addClassNameToAllNodes(nodeNotInMaze);
 
-      let edgeIteration = 0;
+      let edgeIteration = -1;
       let emptyWall = false;
       for(let k = 0; k <= nodes.length; k++){
         setTimeout(() => {
@@ -265,21 +269,23 @@ class BoardComponent extends React.Component{
 
               //animates edges
               console.log("edge iteration: " + edgeIteration);
-              for(let p = 0; p < edges[edgeIteration].length; p++){
-                let i = edges[edgeIteration][p][0];
-                let j = edges[edgeIteration][p][1];
-                let name = ''
-                if(this.board.isEmptyTopWall(i, j)){
-                  name = "EmptyTopWall";
-                }
-                else if(this.board.isEmptyLeftWall(i, j)){
-                  name = "EmptyLeftWall";
-                }
-                else{
-                  emptyWall = true;
-                }
+              if(edgeIteration >= 0){
+                for(let p = 0; p < edges[edgeIteration].length; p++){
+                  let i = edges[edgeIteration][p][0];
+                  let j = edges[edgeIteration][p][1];
+                  let name = ''
+                  if(this.board.isEmptyTopWall(i, j)){
+                    name = "EmptyTopWall";
+                  }
+                  else if(this.board.isEmptyLeftWall(i, j)){
+                    name = "EmptyLeftWall";
+                  }
+                  else{
+                    emptyWall = true;
+                  }
                 
-                document.getElementById(`node-${i}-${j}`).className = name;
+                  document.getElementById(`node-${i}-${j}`).className = name;
+                }
               }
               edgeIteration++;
             }
